@@ -23,13 +23,12 @@ TTS plugin for [Larynx](https://github.com/rhasspy/larynx)
 :warning: depending on where larynx is hosted different voices and vocoders 
 might be available, see below for default list
 
-`host` - url where larynx is running
-`voice` - additional voices can be downloaded in the web interface, default `mary_ann`
-`vocoder` -  recommend using `hifi_gan/vctk_small` for performance reasons, 
-other options are `hifi_gan/universal_medium` and `hifi_gan/universal_large`
-`noise` - Volatility of speaker (0-1, default: 0.333)
-`denoiser` - Strength of vocoder denoiser (0-1, 0 is disabled)
-`length` - Speed of speaker (default: 1.0, faster < 1 < slower)
+- `host` - url where larynx is running
+- `voice` - additional voices can be downloaded in the web interface, default `mary_ann`
+- `vocoder` -  recommend using `hifi_gan/vctk_small` for performance reasons, other options are `hifi_gan/universal_medium` and `hifi_gan/universal_large`
+- `noise` - Volatility of speaker (0-1, default: 0.333)
+- `denoiser` - Strength of vocoder denoiser (0-1, 0 is disabled)
+- `length` - Speed of speaker (default: 1.0, faster < 1 < slower)
 
 
 ### Voices
