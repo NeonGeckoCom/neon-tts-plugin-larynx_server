@@ -13,10 +13,9 @@ TTS plugin for [Larynx](https://github.com/rhasspy/larynx)
   "tts": {
     "module": "neon-tts-plugin-larynx-server",
     "neon-tts-plugin-larynx-server": {
-      "voice": "UKEnglishMale",
-      "pitch": 0.5,
-      "rate": 0.5,
-      "vol": 1
+      "host": "http://138.68.25.242:5002",
+      "voice": "mary_ann",
+      "vocoder": "hifi_gan/vctk_small"
     }
  }
 ```
@@ -24,6 +23,7 @@ TTS plugin for [Larynx](https://github.com/rhasspy/larynx)
 :warning: depending on where larynx is hosted different voices and vocoders 
 might be available, see below for default list
 
+`host` - url where larynx is running
 `voice` - additional voices can be downloaded in the web interface, default `mary_ann`
 `vocoder` -  recommend using `hifi_gan/vctk_small` for performance reasons, 
 other options are `hifi_gan/universal_medium` and `hifi_gan/universal_large`

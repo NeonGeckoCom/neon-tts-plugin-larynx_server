@@ -76,7 +76,7 @@ class LarynxServerTTSPlugin(TTS):
                             "vol": 1}
         super(LarynxServerTTSPlugin, self).__init__(
             lang, config, LarynxServerTTSPluginValidator(self), 'wav')
-        self.url = config.get("host", "c")
+        self.url = config.get("host", "http://138.68.25.242:5002/")
         self.vocoder = config.get("vocoder", "hifi_gan/vctk_small")
         self.noise = config.get("noise", 0.333)
         self.length = config.get("length", 1.0)
