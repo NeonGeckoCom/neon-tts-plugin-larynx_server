@@ -13,7 +13,7 @@ license_overrides = {
     'psutil': 'BSD3'
 }
 # explicitly allow these packages that would fail otherwise
-whitelist = []
+whitelist = ["setuptools"]
 
 # validation flags
 allow_nonfree = False
