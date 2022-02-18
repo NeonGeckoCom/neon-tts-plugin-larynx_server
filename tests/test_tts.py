@@ -20,7 +20,6 @@
 import os
 import sys
 import unittest
-from pprint import pprint
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "res"))
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
