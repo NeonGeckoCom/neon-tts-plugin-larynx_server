@@ -1,4 +1,3 @@
-ovos-plugin-manager~=0.0.4
-SpeechRecognition~=3.8
-neon_utils~=0.6
-requests~=2.26
+ovos-plugin-manager
+SpeechRecognition
+requests
