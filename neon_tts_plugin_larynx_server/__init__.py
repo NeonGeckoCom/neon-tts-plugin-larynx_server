@@ -14,7 +14,6 @@ from os.path import join
 
 import requests
 from ovos_plugin_manager.templates.tts import TTS, TTSValidator
-from neon_utils.parse_utils import format_speak_tags
 
 
 class LarynxServerTTSPlugin(TTS):
@@ -103,20 +102,18 @@ class LarynxServerTTSPlugin(TTS):
         Returns:
             Tuple ((str) written file, None)
         """
-        sentence = format_speak_tags(sentence, False)
-        if not sentence:
-            return wav_file, None
-        url = join(self.url, "api", "tts")
-        wav = requests.get(url,
-                           params={"text": sentence,
-                                   "voice": self.voice,
-                                   "vocoder": self.vocoder,
-                                   "lengthScale": self.length,
-                                   "noiseScale": self.noise,
-                                   "inlinePronunciations": False,
-                                   "denoiserStrength": self.denoiser}).content
-        with open(wav_file, "wb") as f:
-            f.write(wav)
+        if sentence:
+            url = join(self.url, "api", "tts")
+            wav = requests.get(url,
+                               params={"text": sentence,
+                                       "voice": self.voice,
+                                       "vocoder": self.vocoder,
+                                       "lengthScale": self.length,
+                                       "noiseScale": self.noise,
+                                       "inlinePronunciations": False,
+                                       "denoiserStrength": self.denoiser}).content
+            with open(wav_file, "wb") as f:
+                f.write(wav)
         return wav_file, None  # No phonemes
 
 
