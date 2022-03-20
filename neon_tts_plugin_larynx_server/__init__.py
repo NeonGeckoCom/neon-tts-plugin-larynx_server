@@ -75,16 +75,18 @@ class LarynxServerTTSPlugin(TTS):
                             "pitch": 0.5,
                             "rate": 0.5,
                             "vol": 1}
-        self.url = config.get("host", "http://tts.neon.ai")
-        self.vocoder = config.get("vocoder", "hifi_gan/vctk_small")
-        self.noise = config.get("noise", 0.333)
-        self.length = config.get("length", 1.0)
-        self.denoiser = config.get("denoiser", 0.002)
+        
         self.voice = config.get("voice", 'mary_ann')
         if self.voice in self.voice2id:
             self.voice = self.voice2id[self.voice]
         super(LarynxServerTTSPlugin, self).__init__(
             lang, config, LarynxServerTTSPluginValidator(self), 'wav')
+        self.url = config.get("host", "http://tts.neon.ai")
+        self.vocoder = config.get("vocoder", "hifi_gan/vctk_small")
+        self.noise = config.get("noise", 0.333)
+        self.length = config.get("length", 1.0)
+        self.denoiser = config.get("denoiser", 0.002)
+
 
 
     def get_voices(self):
@@ -104,7 +106,7 @@ class LarynxServerTTSPlugin(TTS):
         Returns:
             Tuple ((str) written file, None)
         """
-        sentence = format_speak_tags(sentence, False)
+        # sentence = format_speak_tags(sentence, False)
         if not sentence:
             return wav_file, None
         url = join(self.url, "api", "tts")
