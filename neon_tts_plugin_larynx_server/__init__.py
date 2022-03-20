@@ -104,18 +104,18 @@ class LarynxServerTTSPlugin(TTS):
         Returns:
             Tuple ((str) written file, None)
         """
-        # sentence = format_speak_tags(sentence, False)
+        sentence = format_speak_tags(sentence, False)
         if not sentence:
             return wav_file, None
         url = join(self.url, "api", "tts")
-        wav = requests.get(url,
-                           params={"text": sentence,
-                                   "voice": self.voice,
-                                   "vocoder": self.vocoder,
-                                   "lengthScale": self.length,
-                                   "noiseScale": self.noise,
-                                   "inlinePronunciations": False,
-                                   "denoiserStrength": self.denoiser}).content
+        wav = requests.get(url, params={
+                "text": sentence,
+                "voice": self.voice,
+                "vocoder": self.vocoder,
+                "lengthScale": self.length,
+                "noiseScale": self.noise,
+                "inlinePronunciations": False,
+                "denoiserStrength": self.denoiser}).content
         with open(wav_file, "wb") as f:
             f.write(wav)
         return wav_file, None  # No phonemes
