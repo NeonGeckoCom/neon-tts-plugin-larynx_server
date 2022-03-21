@@ -13,9 +13,7 @@
 from os.path import join
 
 import requests
-from ovos_plugin_manager.templates.tts import TTS, TTSValidator
-# from neon_utils.parse_utils import format_speak_tags
-
+from ovos_plugin_manager.templates.tts import TTS, TTSValidator, format_speak_tags
 
 class LarynxServerTTSPlugin(TTS):
     """Interface to Larynx TTS."""
@@ -75,7 +73,7 @@ class LarynxServerTTSPlugin(TTS):
                             "pitch": 0.5,
                             "rate": 0.5,
                             "vol": 1}
-        
+
         self.voice = config.get("voice", 'mary_ann')
         if self.voice in self.voice2id:
             self.voice = self.voice2id[self.voice]
@@ -86,8 +84,6 @@ class LarynxServerTTSPlugin(TTS):
         self.noise = config.get("noise", 0.333)
         self.length = config.get("length", 1.0)
         self.denoiser = config.get("denoiser", 0.002)
-
-
 
     def get_voices(self):
         url = join(self.url, "api", "voices")
@@ -106,7 +102,7 @@ class LarynxServerTTSPlugin(TTS):
         Returns:
             Tuple ((str) written file, None)
         """
-        # sentence = format_speak_tags(sentence, False)
+        sentence = format_speak_tags(sentence, False)
         if not sentence:
             return wav_file, None
         url = join(self.url, "api", "tts")
