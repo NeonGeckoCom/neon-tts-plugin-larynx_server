@@ -10,19 +10,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import random
 from os.path import join
 
 import requests
-from ovos_plugin_manager.templates.tts import TTS, TTSValidator
+from ovos_plugin_manager.templates.tts import TTS, TTSValidator, RemoteTTSException
+from ovos_utils.log import LOG
 
 
 class LarynxServerTTSPlugin(TTS):
     """Interface to Larynx TTS."""
+    PUBLIC_SERVERS = ["http://tts.neon.ai",
+                      "https://larynx.jarbasai.online"]
     voice2id = {'bart_de_leeuw': 'nl/bart_de_leeuw-glow_tts',
                 'biblia_takatifu': 'sw/biblia_takatifu-glow_tts',
                 'blizzard_fls': 'en-us/blizzard_fls-glow_tts',
                 'blizzard_lessac': 'en-us/blizzard_lessac-glow_tts',
                 'carlfm': 'es-es/carlfm-glow_tts',
+                "glados": "en-us/glados-glow_tts",
                 'cmu_aew': 'en-us/cmu_aew-glow_tts',
                 'cmu_ahw': 'en-us/cmu_ahw-glow_tts',
                 'cmu_aup': 'en-us/cmu_aup-glow_tts',
@@ -76,45 +81,60 @@ class LarynxServerTTSPlugin(TTS):
                             "vol": 1}
         super(LarynxServerTTSPlugin, self).__init__(
             lang, config, LarynxServerTTSPluginValidator(self), 'wav')
-        self.url = config.get("host", "http://tts.neon.ai")
+        self.url = config.get("host")
         self.vocoder = config.get("vocoder", "hifi_gan/vctk_small")
         self.noise = config.get("noise", 0.333)
         self.length = config.get("length", 1.0)
         self.denoiser = config.get("denoiser", 0.002)
-        self.voice = config.get("voice", 'mary_ann')
-        if self.voice in self.voice2id:
-            self.voice = self.voice2id[self.voice]
+        voice = config.get("voice", 'mary_ann')
+        self.voice = self.validate_voice(voice)
+
+    def validate_voice(self, voice):
+        if voice in self.voice2id:
+            voice = self.voice2id[self.voice]
+        assert voice in {v for k, v in self.voice2id.items()}
+        return voice
 
     def get_voices(self):
-        url = join(self.url, "api", "voices")
+        url = self.url or random.choice(self.PUBLIC_SERVERS)
+        url = join(url, "api", "voices")
         return requests.get(url).json()
 
     def get_vocoders(self):
-        url = join(self.url, "api", "vocoders")
+        url = self.url or random.choice(self.PUBLIC_SERVERS)
+        url = join(url, "api", "vocoders")
         return requests.get(url).json()
 
-    def get_tts(self, sentence, wav_file):
+    def get_tts(self, sentence, wav_file, voice=None):
         """Fetch tts audio using ResponsiveVoice endpoint.
 
         Arguments:
             sentence (str): Sentence to generate audio for
             wav_file (str): output file path
+            voice (str): voice to be used (optional, not used in mycroft-core)
         Returns:
             Tuple ((str) written file, None)
         """
+        voice = voice or self.voice
         if sentence:
-            url = join(self.url, "api", "tts")
-            wav = requests.get(url,
-                               params={"text": sentence,
-                                       "voice": self.voice,
-                                       "vocoder": self.vocoder,
-                                       "lengthScale": self.length,
-                                       "noiseScale": self.noise,
-                                       "inlinePronunciations": False,
-                                       "denoiserStrength": self.denoiser}).content
-            with open(wav_file, "wb") as f:
-                f.write(wav)
-        return wav_file, None  # No phonemes
+            urls = [self.url] if self.url else self.PUBLIC_SERVERS
+            for url in urls:
+                try:
+                    wav = requests.get(join(url, "api", "tts"),
+                                       params={"text": sentence,
+                                               "voice": self.validate_voice(voice),
+                                               "vocoder": self.vocoder,
+                                               "lengthScale": self.length,
+                                               "noiseScale": self.noise,
+                                               "inlinePronunciations": False,
+                                               "denoiserStrength": self.denoiser}).content
+                    with open(wav_file, "wb") as f:
+                        f.write(wav)
+                    return wav_file, None  # No phonemes
+                except Exception as e:
+                    LOG.error(f"failed to get TTS from {url}")
+
+        raise RemoteTTSException("Larynx server error")
 
 
 class LarynxServerTTSPluginValidator(TTSValidator):
