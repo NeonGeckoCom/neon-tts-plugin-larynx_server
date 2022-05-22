@@ -22,7 +22,9 @@ class LarynxServerTTSPlugin(TTS):
     """Interface to Larynx TTS."""
     PUBLIC_SERVERS = ["http://tts.neon.ai",
                       "https://larynx.jarbasai.online"]
-    voice2id = {'bart_de_leeuw': 'nl/bart_de_leeuw-glow_tts',
+    voice2id = {
+        'default': 'en-us/mary_ann-glow_tts',
+        'bart_de_leeuw': 'nl/bart_de_leeuw-glow_tts',
                 'biblia_takatifu': 'sw/biblia_takatifu-glow_tts',
                 'blizzard_fls': 'en-us/blizzard_fls-glow_tts',
                 'blizzard_lessac': 'en-us/blizzard_lessac-glow_tts',
@@ -134,7 +136,9 @@ class LarynxServerTTSPlugin(TTS):
                 except Exception as e:
                     LOG.error(f"failed to get TTS from {url}")
 
-        raise RemoteTTSException("Larynx server error")
+            raise RemoteTTSException("Larynx server error")
+
+        return wav_file, None  # No phonemes
 
 
 class LarynxServerTTSPluginValidator(TTSValidator):
