@@ -60,7 +60,9 @@ class TestTTS(unittest.TestCase):
 
     def test_empty_speak(self):
         out_file = os.path.join(os.path.dirname(__file__), "test2.wav")
-        file, _ = self.tts.get_tts("</speak>Hello.", out_file)
+        # this is called internally as part of preprocessing via execute method
+        utt = self.tts.format_speak_tags("</speak>Hello.")
+        file, _ = self.tts.get_tts(utt, out_file)
         self.assertFalse(os.path.isfile(out_file))
 
 
