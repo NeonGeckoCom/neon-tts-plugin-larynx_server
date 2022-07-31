@@ -157,3 +157,74 @@ class LarynxServerTTSPluginValidator(TTSValidator):
 
     def get_tts_class(self):
         return LarynxServerTTSPlugin
+
+
+# TODO manually check gender of each voice and add below
+LarynxServerTTSPluginConfig = {
+    "de-de": [
+        {'voice': 'de-de/thorsten-glow_tts', 'display_name': 'thorsten', 'gender': ''},
+        {'voice': 'de-de/karlsson-glow_tts', 'display_name': 'karlsson', 'gender': ''},
+        {'voice': 'de-de/rebecca_braunert_plunkett-glow_tts', 'display_name': 'rebecca braunert plunkett', 'gender': ''},
+        {'voice': 'de-de/eva_k-glow_tts', 'display_name': 'eva k', 'gender': ''},
+        {'voice': 'de-de/hokuspokus-glow_tts', 'display_name': 'hokuspokus', 'gender': ''},
+        {'voice': 'de-de/kerstin-glow_tts', 'display_name': 'kerstin', 'gender': ''},
+        {'voice': 'de-de/pavoque-glow_tts', 'display_name': 'pavoque', 'gender': ''}
+    ],
+    "en-us": [
+        {"voice": "en-us/cmu_aew-glow_tts", "speaker": "aew", "gender": "male"},
+        {"voice": "en-us/cmu_ahw-glow_tts", "speaker": "ahw", "gender": ""},
+        {"voice": "en-us/cmu_aup-glow_tts", "speaker": "aup", "gender": ""},
+        {"voice": "en-us/cmu_bdl-glow_tts", "speaker": "bdl", "gender": "male"},
+        {"voice": "en-us/cmu_clb-glow_tts", "speaker": "clb", "gender": "female"},
+        {"voice": "en-us/cmu_eey-glow_tts", "speaker": "eey", "gender": ""},
+        {"voice": "en-us/cmu_fem-glow_tts", "speaker": "fem", "gender": ""},
+        {"voice": "en-us/cmu_jmk-glow_tts", "speaker": "jmk", "gender": ""},
+        {"voice": "en-us/cmu_ksp-glow_tts", "speaker": "ksp", "gender": "male"},
+        {"voice": "en-us/cmu_ljm-glow_tts", "speaker": "ljm", "gender": ""},
+        {"voice": "en-us/cmu_lnh-glow_tts", "speaker": "lnh", "gender": "female"},
+        {"voice": "en-us/cmu_rms-glow_tts", "speaker": "rms", "gender": "male"},
+        {"voice": "en-us/cmu_rxr-glow_tts", "speaker": "rxr", "gender": ""},
+        {"voice": "en-us/cmu_slp-glow_tts", "speaker": "slp", "gender": ""},
+        {"voice": "en-us/cmu_slt-glow_tts", "speaker": "slt", "gender": "female"},
+        {"voice": "en-us/ljspeech-glow_tts", "speaker": "ljspeech", "gender": "female"},
+        {"voice": "en-us/glados-glow_tts", "speaker": "glados", "gender": "female"},
+        {"voice": "en-us/judy_bieber-glow_tts", "speaker": "judy bieber", "gender": "female"},
+        {"voice": "en-us/mary_ann-glow_tts", "speaker": "mary ann", "gender": "female"},
+        {"voice": "en-us/blizzard_fls-glow_tts", "speaker": "blizzard fls", "gender": ""},
+        {"voice": "en-us/blizzard_lessac-glow_tts", "speaker": "blizzard lessac", "gender": ""},
+        {"voice": "en-us/ek-glow_tts", "speaker": "ek", "gender": ""},
+        {"voice": "en-us/harvard-glow_tts", "speaker": "harvard", "gender": ""},
+        {"voice": "en-us/kathleen-glow_tts", "speaker": "kathleen", "gender": ""},
+        {"voice": "en-us/northern_english_male-glow_tts", "speaker": "northern english male", "gender": "male"},
+        {"voice": "en-us/southern_english_male-glow_tts", "speaker": "southern english male", "gender": "male"},
+        {"voice": "en-us/southern_english_female-glow_tts", "speaker": "southern english female", "gender": "female"},
+        {"voice": "en-us/scottish_english_male-glow_tts", "speaker": "scottish english male", "gender": "male"}
+    ],
+    "es-es": [
+        {"voice": "es-es/carlfm-glow_tts", "speaker": "carlfm", "gender": ""},
+        {'voice': 'es-es/karen_savage-glow_tts', 'display_name': 'karen savage', 'gender': ''}
+    ],
+    "fr-fr": [
+        {'voice': 'fr-fr/gilles_le_blanc-glow_tts', 'display_name': 'gilles le blanc', 'gender': ''},
+        {'voice': 'fr_fr/siwis-glow_tts', 'display_name': 'siwis', 'gender': ''},
+        {'voice': 'fr_fr/tom-glow_tts', 'display_name': 'tom', 'gender': ''}
+    ],
+    "it-it": [
+        {'voice': 'it-it/riccardo_fasol-glow_tts', 'display_name': 'riccardo_fasol', 'gender': ''},
+        {'voice': 'it-it/lisa-glow_tts', 'display_name': 'lisa', 'gender': ''}
+    ],
+    "nl": [
+        {'voice': 'nl/bart_de_leeuw-glow_tts', 'display_name': 'bart de leeuw', 'gender': ''},
+        {'voice': 'nl/flemishguy-glow_tts', 'display_name': 'flemishguy', 'gender': ''},
+        {'voice': 'nl/nathalie-glow_tts', 'display_name': 'nathalie', 'gender': ''},
+        {'voice': 'nl/rdh-glow_tts', 'display_name': 'rdh', 'gender': ''}
+    ],
+    "ru-ru": [
+        {'voice': 'ru-ru/hajdurova-glow_tts', 'display_name': 'hajdurova', 'gender': ''},
+        {'voice': 'ru-ru/minaev-glow_tts', 'display_name': 'minaev', 'gender': ''},
+        {'voice': 'ru-ru/nikolaev-glow_tts', 'display_name': 'nikolaev', 'gender': ''}
+    ],
+    "sw": [
+        {'voice': 'sw/biblia_takatifu-glow_tts', 'display_name': 'biblia takatifu', 'gender': ''}
+    ]
+}
