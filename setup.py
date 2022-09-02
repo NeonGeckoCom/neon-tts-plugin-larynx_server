@@ -4,6 +4,8 @@ from setuptools import setup
 
 PLUGIN_ENTRY_POINT = 'neon-tts-plugin-larynx-server = ' \
                      'neon_tts_plugin_larynx_server:LarynxServerTTSPlugin'
+SAMPLE_CONFIGS = 'neon-tts-plugin-larynx-server.config = ' \
+                 'neon_tts_plugin_larynx_server:LarynxServerTTSPluginConfig'
 
 
 def get_requirements(requirements_filename: str):
@@ -66,5 +68,6 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     keywords='mycroft ovos neon plugin tts',
-    entry_points={'mycroft.plugin.tts': PLUGIN_ENTRY_POINT}
+    entry_points={'mycroft.plugin.tts': PLUGIN_ENTRY_POINT,
+                  'mycroft.plugin.tts.config': SAMPLE_CONFIGS}
 )
