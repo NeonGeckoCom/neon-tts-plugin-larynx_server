@@ -22,7 +22,7 @@ class LarynxServerTTSPlugin(TTS):
     """Interface to Larynx TTS."""
     PUBLIC_SERVERS = ["https://larynx.2022.us",
                       "https://larynx.jarbasai.online",
-                      "https://ziggyai.online/larynx"]
+                      "https://larynx.ziggyai.online"]
     voice2id = {
         'default': 'en-us/mary_ann-glow_tts',
         'bart_de_leeuw': 'nl/bart_de_leeuw-glow_tts',
