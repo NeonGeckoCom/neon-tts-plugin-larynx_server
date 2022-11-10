@@ -37,7 +37,7 @@ from neon_tts_plugin_larynx_server import LarynxServerTTSPlugin
 
 class TestTTS(unittest.TestCase):
     def setUp(self) -> None:
-        self.tts = LarynxServerTTSPlugin()
+        self.tts = LarynxServerTTSPlugin(config={'host': 'https://larynx.2022.us'})
 
     def doCleanups(self) -> None:
         try:
