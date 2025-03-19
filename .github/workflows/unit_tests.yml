@@ -6,35 +6,30 @@ on:
   workflow_dispatch:
 
 jobs:
+  py_build_tests:
+    uses: neongeckocom/.github/.github/workflows/python_build_tests.yml@master
   unit_tests:
     strategy:
       matrix:
-        python-version: [ 3.7, 3.8, 3.9, '3.10' ]
+        python-version: [ 3.9, '3.10', '3.11' ]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements/requirements.txt -r requirements/test_requirements.txt
-    - name: Get Credential
-      run: |
-          mkdir -p ~/.local/share/neon
-          echo $AMAZON_CREDS > ~/.local/share/neon/aws.json
-      shell: bash
-      env:
-        AMAZON_CREDS: ${{secrets.amazon_creds}}
     - name: Test TTS
       run: |
         pip install pytest pytest-timeout
         pytest tests/test_tts.py --junitxml=tests/tts-test-results.xml
     - name: Upload TTS test results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
-        name: pytest-results-3.6
+        name: pytest-results-${{ matrix.python-version }}
         path: tests/tts-test-results.xml
       if: ${{ always() }}
